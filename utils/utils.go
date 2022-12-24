@@ -11,6 +11,7 @@ package utils
 import (
 	"os"
 	"strconv"
+	"strings"
 )
 
 func StrToFloat64(s string) float64 {
@@ -38,4 +39,22 @@ func StrToFloat64WithDef(s string, def float64) float64 {
 func FIsExist(path string) bool {
 	_, err := os.Stat(path)
 	return err == nil || os.IsExist(err)
+}
+
+func StrSplitAny(s string, seps string) []string {
+	splitter := func(r rune) bool {
+		return strings.ContainsRune(seps, r)
+	}
+	return strings.FieldsFunc(s, splitter)
+}
+
+func StrTrimLines(str string) []string {
+	lines := strings.Split(str, "\n")
+	trimmedLines := make([]string, len(lines))
+
+	for _, line := range lines {
+		line = strings.TrimSpace(line)
+		trimmedLines = append(trimmedLines, line)
+	}
+	return trimmedLines
 }

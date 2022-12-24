@@ -30,13 +30,7 @@ import (
 func GetCPUInfo() (hardware, modelName, model, rev, serial string, cores int) {
 	res, _ := utils.RunCommand(`/bin/cat /proc/cpuinfo | /bin/egrep -i 'processor|model|hardware|revision|serial' | sort | uniq`)
 
-	lines := strings.Split(res, "\n")
-	trimmedLines := make([]string, len(lines))
-
-	for _, curLine := range lines {
-		curLine = strings.TrimSpace(curLine)
-		trimmedLines = append(trimmedLines, curLine)
-	}
+	trimmedLines := utils.StrTrimLines(res)
 
 	for _, curLine := range trimmedLines {
 		curValue := ""
@@ -134,13 +128,7 @@ func GetCPUSysTemp() string {
 func GetCPUArch() (arch, archModel string) {
 	res, _ := utils.RunCommand(`/usr/bin/lscpu | /bin/egrep -i 'architecture|vendor|model'`)
 
-	lines := strings.Split(res, "\n")
-	trimmedLines := make([]string, len(lines))
-
-	for _, curLine := range lines {
-		curLine = strings.TrimSpace(curLine)
-		trimmedLines = append(trimmedLines, curLine)
-	}
+	trimmedLines := utils.StrTrimLines(res)
 
 	var (
 		vendor = ""
