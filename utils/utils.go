@@ -57,6 +57,15 @@ func StrContainsAny(s string, seps ...string) bool {
 	return false
 }
 
+func StrRemoveAny(s string, seps ...string) string {
+	for _, sep := range seps {
+		if strings.Contains(s, sep) {
+			s = strings.ReplaceAll(s, sep, "")
+		}
+	}
+	return s
+}
+
 func StrTrimLines(str string) []string {
 	lines := strings.Split(str, "\n")
 	trimmedLines := make([]string, len(lines))
