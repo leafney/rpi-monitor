@@ -93,7 +93,7 @@ func LoadNetworkIFDetailLines(detailLines []string) (ipAddr, macAddr string) {
 	)
 
 	for _, curLine := range detailLines {
-		lineParts := strings.Split(curLine, "")
+		lineParts := strings.Split(curLine, " ")
 		if len(lineParts) > 0 {
 
 			if strings.Contains(curLine, "flags") {

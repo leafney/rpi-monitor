@@ -11,7 +11,6 @@ package module
 import (
 	"fmt"
 	"github.com/leafney/rpi-monitor/utils"
-	"math"
 	"strings"
 )
 
@@ -57,14 +56,14 @@ func GetCPUInfo() (hardware, modelName, model, rev, serial string, cores int) {
 	return
 }
 
-// GetCPULoadAvg
-func GetCPULoadAvg(cores int) (load1, load5, load15 float64) {
+// GetCPULoadAvg percent
+func GetCPULoadAvg(cores int) (load1, load5, load15 string) {
 	res, _ := utils.RunCommand(`/bin/cat /proc/loadavg`)
-	cpuLoads := strings.Split(res, "")
+	cpuLoads := strings.Split(res, " ")
 
-	load1 = math.Round(utils.StrToFloat64(cpuLoads[0]) / float64(cores) * 100)
-	load5 = math.Round(utils.StrToFloat64(cpuLoads[1]) / float64(cores) * 100)
-	load15 = math.Round(utils.StrToFloat64(cpuLoads[2]) / float64(cores) * 100)
+	load1 = fmt.Sprintf("%.2f", utils.StrToFloat64(cpuLoads[0])/float64(cores)*100)
+	load5 = fmt.Sprintf("%.2f", utils.StrToFloat64(cpuLoads[1])/float64(cores)*100)
+	load15 = fmt.Sprintf("%.2f", utils.StrToFloat64(cpuLoads[2])/float64(cores)*100)
 
 	return
 }

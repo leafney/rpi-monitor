@@ -26,13 +26,28 @@ func main() {
 	*/
 
 	//	test os info
-	fmt.Println(module.GetOSHostName(""))
-	fmt.Println(module.GetOSKernel())
-	fmt.Println(module.GetOSDistro())
-	fmt.Println(module.GetOSCodeName())
-	//raspberrypi raspberrypi
-	//Linux 5.10.17-v7+
-	//Raspbian GNU/Linux 10 (buster)
-	//buster
+	/*
+		fmt.Println(module.GetOSHostName(""))
+		fmt.Println(module.GetOSKernel())
+		fmt.Println(module.GetOSDistro())
+		fmt.Println(module.GetOSCodeName())
+		//raspberrypi raspberrypi
+		//Linux 5.10.17-v7+
+		//Raspbian GNU/Linux 10 (buster)
+		//buster
+
+	*/
+
+	//	test cpu info
+	fmt.Println(module.GetCPUArch())
+	fmt.Println(module.GetCPUTemperatureC())
+	fmt.Println(module.GetCPUTemperatureF())
+	fmt.Println(module.GetCPUInfo())
+	fmt.Println(module.GetCPULoadAvg(4))
+	//armv7l ARM Cortex-A53
+	//60.1
+	//140.18
+	//BCM2835 ARMv7 Processor rev 4 (v7l) Raspberry Pi 3 Model B Plus Rev 1.3 a020d3 000000007a867fb6 4
+	//15.75 8.50 7.75
 
 }
