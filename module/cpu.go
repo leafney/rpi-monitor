@@ -124,3 +124,44 @@ func GetCPUSysTemp() string {
 	res, _ := utils.RunCommand(`/bin/cat /sys/class/thermal/thermal_zone0/temp`)
 	return fmt.Sprintf("%.1f", utils.StrToFloat64(res)/1000.0)
 }
+
+// GetCPUArch
+//	➜ /usr/bin/lscpu | /bin/egrep -i 'architecture|vendor|model'
+//	Architecture:        armv7l
+//	Vendor ID:           ARM
+//	Model:               4
+//	Model name:          Cortex-A53
+func GetCPUArch() (arch, archModel string) {
+	res, _ := utils.RunCommand(`/usr/bin/lscpu | /bin/egrep -i 'architecture|vendor|model'`)
+
+	lines := strings.Split(res, "\n")
+	trimmedLines := make([]string, len(lines))
+
+	for _, curLine := range lines {
+		curLine = strings.TrimSpace(curLine)
+		trimmedLines = append(trimmedLines, curLine)
+	}
+
+	var (
+		vendor = ""
+		model  = ""
+	)
+	for _, curLine := range trimmedLines {
+		curValue := ""
+		lineParts := strings.Split(curLine, ":")
+		if len(lineParts) >= 2 {
+			curValue = strings.TrimSpace(lineParts[1])
+		}
+
+		if strings.HasPrefix(curLine, "Architecture") {
+			arch = curValue
+		} else if strings.HasPrefix(curLine, "Vendor") {
+			vendor = curValue
+		} else if strings.HasPrefix(curLine, "Model name") {
+			model = curValue
+		}
+	}
+	archModel = fmt.Sprintf("%s %s", vendor, model)
+
+	return
+}
