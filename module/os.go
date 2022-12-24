@@ -15,25 +15,24 @@ import (
 )
 
 // GetOSHostName Get hostname and FQDN, support for custom domain name
-func GetOSHostName(defDomain string) (string, string) {
-	var resHostname, resFQDN = "", ""
+func GetOSHostName(defDomain string) (hostName, fqdn string) {
 	res, _ := utils.RunCommand(`/bin/hostname -f`)
 
-	resHostname = res
+	hostName = res
 	// check domain exist
 	if strings.Contains(res, ".") {
 		nameParts := strings.Split(res, ".")
-		resFQDN = res
-		resHostname = nameParts[0]
+		fqdn = res
+		hostName = nameParts[0]
 	} else {
 		if len(defDomain) > 0 {
-			resFQDN = fmt.Sprintf("%s.%s", res, defDomain)
+			fqdn = fmt.Sprintf("%s.%s", res, defDomain)
 		} else {
-			resFQDN = resHostname
+			fqdn = hostName
 		}
 	}
 
-	return resHostname, resFQDN
+	return
 }
 
 // GetOSKernel Get kernel version

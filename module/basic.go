@@ -31,10 +31,10 @@ func GetBasicDeviceModel() string {
 	res, _ := utils.RunCommand(`/bin/cat /proc/device-tree/model`)
 
 	// Raspberry Pi 3 Model B Plus Rev 1.3 ==> RPi 3 Model B+ r1.3
-	strings.ReplaceAll(res, "Raspberry ", "R")
-	strings.ReplaceAll(res, "i Model ", "i 1 Model")
-	strings.ReplaceAll(res, " Plus", "+")
-	strings.ReplaceAll(res, "Rev ", "r")
+	res = strings.ReplaceAll(res, "Raspberry ", "R")
+	res = strings.ReplaceAll(res, "i Model ", "i 1 Model")
+	res = strings.ReplaceAll(res, " Plus", "+")
+	res = strings.ReplaceAll(res, "Rev ", "r")
 
 	return res
 }

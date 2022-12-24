@@ -48,6 +48,15 @@ func StrSplitAny(s string, seps string) []string {
 	return strings.FieldsFunc(s, splitter)
 }
 
+func StrContainsAny(s string, seps ...string) bool {
+	for _, sep := range seps {
+		if strings.Contains(s, sep) {
+			return true
+		}
+	}
+	return false
+}
+
 func StrTrimLines(str string) []string {
 	lines := strings.Split(str, "\n")
 	trimmedLines := make([]string, len(lines))
