@@ -17,7 +17,7 @@ import (
 //	➜ df -h / | tail -n 1 | awk '{print $2,$3,$4,$5}'
 //	15G 5.7G 8.1G 42%
 func GetDrivesFileSystem() (total, used, free, usedPercent string) {
-	res, _ := utils.RunCommand(`/bin/df -h / | /usr/bin/tail -n 1 | /usr/bin/awk '{print $2,$3,$4,$5}`)
+	res, _ := utils.RunCommand(`/bin/df -h / | /usr/bin/tail -n 1 | /usr/bin/awk '{print $2,$3,$4,$5}'`)
 
 	lineParts := strings.Split(res, " ")
 	if len(lineParts) >= 4 {

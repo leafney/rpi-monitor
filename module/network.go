@@ -15,7 +15,7 @@ import (
 )
 
 // GetNetworkIPs
-func GetNetworkIPs() {
+func GetNetworkIPs() string {
 	cmdIp := getIPCmd()
 	if cmdIp != "" {
 		interfaceNames := GetNetworkIFNames(cmdIp)
@@ -27,6 +27,7 @@ func GetNetworkIPs() {
 			fmt.Printf("IF[%s] Mac[%s] Ip[%s]\n", ifName, macAddr, ipAddr)
 		}
 	}
+	return ""
 }
 
 func getIPCmd() string {
