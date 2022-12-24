@@ -46,13 +46,13 @@ func GetOSKernel() string {
 // GetOSDistro
 // eg: Raspbian GNU/Linux 10 (buster)
 func GetOSDistro() string {
-	res, _ := utils.RunCommand(`/usr/bin/lsb_release -d | awk -F ':' '{print $2}'`)
+	res, _ := utils.RunCommand(`/usr/bin/lsb_release -d | /usr/bin/awk -F ':' '{print $2}'`)
 	return res
 }
 
 // GetOSCodeName
 // eg: buster
 func GetOSCodeName() string {
-	res, _ := utils.RunCommand(`/usr/bin/lsb_release -c | awk -F ':' '{print $2}'`)
+	res, _ := utils.RunCommand(`/usr/bin/lsb_release -c | /usr/bin/awk -F ':' '{print $2}'`)
 	return res
 }

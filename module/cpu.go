@@ -75,7 +75,7 @@ func GetCPUTemperatureC() float64 {
 	res := ""
 	cmdGen := getVcGenCmd()
 	if cmdGen != "" {
-		res, _ = utils.RunCommand(fmt.Sprintf(`%s measure_temp | awk -F "[=\']" '{print $2}'`, cmdGen))
+		res, _ = utils.RunCommand(fmt.Sprintf(`%s measure_temp | /usr/bin/awk -F "[=\']" '{print $2}'`, cmdGen))
 	} else {
 		res = GetCPUSysTemp()
 	}
@@ -88,7 +88,7 @@ func GetCPUTemperatureF() float64 {
 	res := ""
 	cmdGen := getVcGenCmd()
 	if cmdGen != "" {
-		res, _ = utils.RunCommand(fmt.Sprintf(`%s measure_temp | awk -F "[=\']" '{print($2 * 1.8)+32}'`, cmdGen))
+		res, _ = utils.RunCommand(fmt.Sprintf(`%s measure_temp | /usr/bin/awk -F "[=\']" '{print($2 * 1.8)+32}'`, cmdGen))
 		return utils.StrToFloat64(res)
 	} else {
 		res = GetCPUSysTemp()
