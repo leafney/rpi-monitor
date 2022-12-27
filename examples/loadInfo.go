@@ -1,6 +1,11 @@
-## 测试参数获取
+/**
+ * @Author:      leafney
+ * @Date:        2022-12-27 23:11
+ * @Project:     rpi-monitor
+ * @HomePage:    https://github.com/leafney
+ * @Description:
+ */
 
-```go
 package main
 
 import (
@@ -68,5 +73,3 @@ func main() {
 	fmt.Println(module.GetNetworkIPs())
 
 }
-
-```

@@ -76,6 +76,7 @@ func GetCPUTemperatureC() float64 {
 	if cmdGen != "" {
 		res, _ = utils.RunCommand(fmt.Sprintf(`%s measure_temp | /usr/bin/awk -F "[=\']" '{print $2}'`, cmdGen))
 	} else {
+		// get another way
 		res = GetCPUSysTemp()
 	}
 	return utils.StrToFloat64(res)

@@ -10,14 +10,14 @@ package model
 
 type (
 	Monitor struct {
-		Common  CommonInfo    `json:"common"`
-		Basic   BasicInfo     `json:"basic"`
-		OS      OSInfo        `json:"os,omitempty"`
-		CPU     CpuInfo       `json:"cpu,omitempty"`
-		MEM     MemoryInfo    `json:"mem,omitempty"`
-		Swap    SwapInfo      `json:"swap,omitempty"`
-		Drives  DrivesInfo    `json:"drives,omitempty"`
-		Network []NetworkInfo `json:"network,omitempty"`
+		Common  CommonInfo     `json:"common"`
+		Basic   *BasicInfo     `json:"basic,omitempty"`
+		OS      *OSInfo        `json:"os,omitempty"`
+		CPU     *CpuInfo       `json:"cpu,omitempty"`
+		MEM     *MemoryInfo    `json:"mem,omitempty"`
+		Swap    *SwapInfo      `json:"swap,omitempty"`
+		Drives  *DrivesInfo    `json:"drives,omitempty"`
+		Network *[]NetworkInfo `json:"network,omitempty"`
 	}
 
 	BasicInfo struct {
