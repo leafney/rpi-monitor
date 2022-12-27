@@ -58,6 +58,10 @@ func GetCPUInfo() (hardware, modelName, model, rev, serial string, cores int) {
 
 // GetCPULoadAvg percent
 func GetCPULoadAvg(cores int) (load1, load5, load15 string) {
+	if cores == 0 {
+		return
+	}
+
 	res, _ := utils.RunCommand(`/bin/cat /proc/loadavg`)
 	cpuLoads := strings.Split(res, " ")
 

@@ -78,10 +78,15 @@ func Publish(client mqtt.Client, topic string) {
 			log.Println("to load monitor info")
 
 			data := &model.Monitor{}
-			data.Basic = metrics.ShowBaseInfo()
+			data.Basic = metrics.ShowBasicInfo()
 			data.MEM, data.Swap = metrics.ShowMemInfo()
+			data.CPU = metrics.ShowCpuInfo("C") //TODO
+			data.Drives = metrics.ShowDrivesInfo()
+			data.Network = metrics.ShowNetworkInfo()
+			data.OS = metrics.ShowOSInfo("") //TODO
+
 			value := rose.JsonMarshalStr(data)
-			log.Println(value)
+			//log.Println(value)
 
 			token := client.Publish(topic, 1, true, value)
 			token.Wait()

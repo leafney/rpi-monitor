@@ -28,7 +28,7 @@ func GetBasicBootTime() string {
 
 // GetBasicDeviceModel Get the system device model
 func GetBasicDeviceModel() string {
-	res, _ := utils.RunCommand(`/bin/cat /proc/device-tree/model`)
+	res, _ := utils.RunCommand(`/bin/cat /proc/device-tree/model | awk "{print $1}"`)
 
 	// Raspberry Pi 3 Model B Plus Rev 1.3 ==> RPi 3 Model B+ r1.3
 	res = strings.ReplaceAll(res, "Raspberry ", "R")

@@ -42,9 +42,9 @@ type (
 	CpuInfo struct {
 		Temperature      float64 `json:"temperature"`
 		TempUnit         string  `json:"temp_unit"`
-		Load1minPercent  float64 `json:"load_1min_percent"`
-		Load5minPercent  float64 `json:"load_5min_percent"`
-		Load15minPercent float64 `json:"load_15min_percent"`
+		Load1minPercent  string  `json:"load_1min_percent"`
+		Load5minPercent  string  `json:"load_5min_percent"`
+		Load15minPercent string  `json:"load_15min_percent"`
 		Hardware         string  `json:"hardware"`
 		Revision         string  `json:"revision"`
 		Serial           string  `json:"serial"`
@@ -58,14 +58,16 @@ type (
 		TotalMB     string `json:"total_mb"`
 		UsedMB      string `json:"used_mb"`
 		UsedPercent string `json:"used_percent"`
-		FreeMB      string `json:"free_mb"`
-		FreePercent string `json:"free_percent"`
+		//FreeMB      string `json:"free_mb"`
+		//FreePercent string `json:"free_percent"`
 	}
 
 	SwapInfo struct {
-		TotalMB string `json:"total_mb"`
-		UsedMB  string `json:"used_mb"`
-		FreeMB  string `json:"free_mb"`
+		TotalMB     string `json:"total_mb"`
+		UsedMB      string `json:"used_mb"`
+		UsedPercent string `json:"used_percent"`
+		//FreeMB  string `json:"free_mb"`
+		//FreePercent string `json:"free_percent"`
 	}
 
 	DrivesInfo struct {

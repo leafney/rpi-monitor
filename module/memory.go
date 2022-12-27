@@ -55,3 +55,36 @@ func GetMemoryInfo() (memTotal, memFree, memAvail, buff, cache, swapTotal, swapF
 
 	return
 }
+
+// GetMemorySimple
+//	➜ /bin/cat /proc/meminfo | /bin/egrep -i "mem[ta]|swap[tf]"
+//	MemTotal:         946392 kB
+//	MemAvailable:     366148 kB
+//	SwapTotal:        102396 kB
+//	SwapFree:             56 kB
+func GetMemorySimple() (memTotal, memAvail, swapTotal, swapFree string) {
+	res, _ := utils.RunCommand(`/bin/cat /proc/meminfo | /bin/egrep -i "mem[ta]|swap[tf]"`)
+
+	trimmedLines := utils.StrTrimLines(res)
+
+	for _, curLine := range trimmedLines {
+		curValue := ""
+
+		lineParts := utils.StrSplitAny(curLine, ": ")
+		if len(lineParts) >= 3 {
+			curValue = lineParts[1]
+		}
+
+		if strings.HasPrefix(curLine, "MemTotal") {
+			memTotal = curValue
+		} else if strings.HasPrefix(curLine, "MemAvailable") {
+			memAvail = curValue
+		} else if strings.HasPrefix(curLine, "SwapTotal") {
+			swapTotal = curValue
+		} else if strings.HasPrefix(curLine, "SwapFree") {
+			swapFree = curValue
+		}
+	}
+
+	return
+}

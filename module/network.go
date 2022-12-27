@@ -10,12 +10,14 @@ package module
 
 import (
 	"fmt"
+	"github.com/leafney/rpi-monitor/model"
 	"github.com/leafney/rpi-monitor/utils"
 	"strings"
 )
 
 // GetNetworkIPs
-func GetNetworkIPs() string {
+func GetNetworkIPs() []model.NetworkInfo {
+	res := make([]model.NetworkInfo, 0)
 	cmdIp := getIPCmd()
 	if cmdIp != "" {
 		interfaceNames := GetNetworkIFNames(cmdIp)
@@ -24,10 +26,17 @@ func GetNetworkIPs() string {
 			interfaceNameDetailLines := GetNetworkIFDetails(cmdIp, ifName)
 			ipAddr, macAddr := LoadNetworkIFDetailLines(interfaceNameDetailLines)
 
-			fmt.Printf("IF[%s] Mac[%s] Ip[%s]\n", ifName, macAddr, ipAddr)
+			//fmt.Printf("IF[%s] Mac[%s] Ip[%s]\n", ifName, macAddr, ipAddr)
+
+			res = append(res, model.NetworkInfo{
+				Name: ifName,
+				MAC:  macAddr,
+				IP:   ipAddr,
+			})
 		}
 	}
-	return ""
+
+	return res
 }
 
 func getIPCmd() string {
