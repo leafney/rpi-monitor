@@ -82,13 +82,13 @@ func Publish(client mqtt.Client, topic string) {
 			data.MEM, data.Swap = metrics.ShowMemInfo()
 			data.CPU = metrics.ShowCpuInfo("C") //TODO
 			data.Drives = metrics.ShowDrivesInfo()
-			data.Network = metrics.ShowNetworkInfo()
-			data.OS = metrics.ShowOSInfo("") //TODO
+			//data.Network = metrics.ShowNetworkInfo()
+			//data.OS = metrics.ShowOSInfo("") //TODO
 
 			value := rose.JsonMarshalStr(data)
 			//log.Println(value)
 
-			token := client.Publish(topic, 1, true, value)
+			token := client.Publish(topic, 0, true, value)
 			token.Wait()
 
 			time.Sleep(30 * time.Second)

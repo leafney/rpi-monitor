@@ -1,0 +1,58 @@
+# This is an example .goreleaser.yml file with some sensible defaults.
+# Make sure to check the documentation at https://goreleaser.com
+before:
+  hooks:
+    # You may remove this if you don't use go modules.
+    - go mod tidy
+builds:
+  - id: "rpi-monitor"
+    main: "main.go"
+    binary: "monitor"
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+#      - amd64
+      - arm
+#      - arm64
+    goarm:
+#      - 6
+      - 7
+#      - 8
+    ignore:
+      - goos: linux
+        goarch: arm
+        goarm: 8
+      - goos: linux
+        goarch: arm64
+        goarm: 7
+    ldflags:
+      - -s -w -X "main.Version={{.Env.APP_VERSION}}" -X "main.GitBranch={{.Env.GIT_BRANCH}}" -X "main.GitCommit={{.Env.GIT_COMMIT}}" -X "main.BuildTime={{.Env.BUILD_TIME}}"
+
+archives:
+#  - replacements:
+#      linux: Linux
+    #      amd64: x86_64
+    files:
+      - src: 'monitor.yaml.example'
+        strip_parent: true
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}"
+changelog:
+  groups:
+    - title: Features
+      regexp: "^.*feat[(\\w)]*:+.*$"
+      order: 0
+    - title: 'Bug fixes'
+      regexp: "^.*fix[(\\w)]*:+.*$"
+      order: 1
+    - title: Others
+      order: 999
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^Merge'
