@@ -2,12 +2,13 @@ name: Push for Lint
 
 on:
   push:
+    tags-ignore:
+      - "v*"
   pull_request:
     branches:
       - main
       - dev
-    tags-ignore:
-      - "v*"
+
 
 jobs:
   test:
