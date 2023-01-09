@@ -1,0 +1,66 @@
+name: Push for Lint
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+      - dev
+    tags-ignore:
+      - "v*"
+
+jobs:
+  test:
+    name: Lint and Test
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_NAME: rpi-monitor
+    steps:
+      - uses: actions/setup-go@v3
+        with:
+          go-version: 1.17
+
+      - uses: actions/checkout@v3
+
+      - name: tidy
+        run: go mod tidy
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: v1.50.1
+
+      - name: test
+        run: go test -v ./...
+
+      - name: Send Success Notify
+        uses: leafney/dingtalk-action@v1
+        if: always()
+        env:
+          DINGTALK_ACCESS_TOKEN: ${{ secrets.DINGTALK_ACCESS_TOKEN }}
+          DINGTALK_SECRET: ${{ secrets.DINGTALK_SECRET }}
+        with:
+          msgtype: markdown
+          notify_when: 'success'
+          title: '[${{ env.PROJECT_NAME }}] 代码规范检查合格'
+          text: |
+            **<font color=#56A6FE size=3> 🎉${{ env.PROJECT_NAME }}🎉 Lint合格</font>**
+
+            Action **[${{ github.workflow }}]** 代码规范检查合格
+
+      - name: Send Failure Notify
+        uses: leafney/dingtalk-action@v1
+        if: always()
+        env:
+          DINGTALK_ACCESS_TOKEN: ${{ secrets.DINGTALK_ACCESS_TOKEN }}
+          DINGTALK_SECRET: ${{ secrets.DINGTALK_SECRET }}
+        with:
+          msgtype: markdown
+          notify_when: 'failure'
+          title: '[${{ env.PROJECT_NAME }}] 代码规范检查发现异常'
+          text: |
+            **<font color=#FF0000 size=3> 🌴${{ env.PROJECT_NAME }}🌴 Lint失败</font>**
+
+            Action **[${{ github.workflow }}]** 代码规范检查发现异常
+
+            [查看错误信息](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})

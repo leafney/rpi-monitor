@@ -11,13 +11,13 @@ import (
 )
 
 var (
-	configFile *string
-	v          bool
-	h          bool
-	Version    = "0.1.0"
-	GitBranch  = ""
-	GitCommit  = ""
-	BuildTime  = "2023-01-08 23:37:48"
+	//configFile *string
+	v         bool
+	h         bool
+	Version   = "0.1.0"
+	GitBranch = ""
+	GitCommit = ""
+	BuildTime = "2023-01-08 23:37:48"
 )
 
 func main() {

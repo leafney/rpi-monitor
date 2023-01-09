@@ -61,9 +61,10 @@ func ShowCpuInfo(unitName string) *model.CpuInfo {
 	c := &model.CpuInfo{}
 
 	var (
-		//cModel = ""
-		cCores = 0
+	//cModel = ""
 	)
+
+	cCores := 0
 
 	if strings.ToUpper(unitName) == "F" {
 		c.Temperature = module.GetCPUTemperatureF()

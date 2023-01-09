@@ -3,7 +3,7 @@
 before:
   hooks:
     # You may remove this if you don't use go modules.
-    - go mod tidy
+    - go mod tidy -compat=1.17
 builds:
   - id: "rpi-monitor"
     main: "main.go"
@@ -17,24 +17,14 @@ builds:
       - arm
 #      - arm64
     goarm:
-#      - 6
+      - 6
       - 7
-#      - 8
-    ignore:
-      - goos: linux
-        goarch: arm
-        goarm: 8
-      - goos: linux
-        goarch: arm64
-        goarm: 7
     ldflags:
+#      - -s -w
       - -s -w -X "main.Version={{.Env.APP_VERSION}}" -X "main.GitBranch={{.Env.GIT_BRANCH}}" -X "main.GitCommit={{.Env.GIT_COMMIT}}" -X "main.BuildTime={{.Env.BUILD_TIME}}"
 
 archives:
-#  - replacements:
-#      linux: Linux
-    #      amd64: x86_64
-    files:
+   - files:
       - src: 'monitor.yaml.example'
         strip_parent: true
 checksum:
