@@ -2,6 +2,9 @@ name: Push for Lint
 
 on:
   push:
+    branches:
+      - main
+      - dev
     tags-ignore:
       - "v*"
   pull_request:
