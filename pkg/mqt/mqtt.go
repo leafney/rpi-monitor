@@ -91,7 +91,7 @@ func Publish(client mqtt.Client, topic string) {
 			token := client.Publish(topic, 0, true, value)
 			token.Wait()
 
-			time.Sleep(30 * time.Second)
+			time.Sleep(60 * time.Second)
 		}
 	}()
 
